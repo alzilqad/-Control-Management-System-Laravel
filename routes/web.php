@@ -18,4 +18,7 @@ Route::get('/logout', [logoutController::class, 'index'])->name('logout.index');
 Route::get('/registration', [registrationController::class, 'index'])->name('registration.index');
 Route::post('/registration', [registrationController::class, 'create']);
 
-Route::get('/home', [homeController::class, 'index'])->name('home.index');
+Route::group(['middleware' => ['session']], function () {
+    Route::get('/home', [homeController::class, 'index'])->name('home.index');
+
+});
