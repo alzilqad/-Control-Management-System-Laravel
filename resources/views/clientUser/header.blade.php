@@ -55,19 +55,22 @@
 
             <nav class="nav-menu d-none d-lg-block">
                 <ul>
-
-                    <li class="active"><a href="/client">Dashboard</a></li>
-                    <li><a href="/companylist">Company</a></li>
-                    <li><a href="/proposallist">Proposal</a></li>
-                    <li><a href="/servicelist">Service History</a></li>
-                    <li><a href="/client/profile">Profile</a></li>
-                    <li><a href="/chat">Chat</a></li>
-                    <li><a href="/logout">Sign Out</a></li>
+                    @if(session()->has('username'))
+                    <li class="active"><a href="{{route('home.index')}}">Dashboard</a></li>
+                    <li><a href="{{route('companylist.index')}}">Company</a></li>
+                    <li><a href="{{route('proposal.index')}}">Proposal</a></li>
+                    <li><a href="{{route('service.index')}}">Service History</a></li>
+                    <li><a href="{{route('profile.index')}}">Profile</a></li>
+                    <li><a href="{{route('chat.index')}}">Chat</a></li>
+                    <li><a href="{{route('logout.index')}}">Log Out</a></li>
+                    @else
+                    <li><a href="{{route('login.index')}}">Log In</a></li>
+                    @endif
                 </ul>
             </nav>
             <!-- .nav-menu -->
 
-            <a href="/registration" class="get-started-btn scrollto">Get Started</a>
+            <a href="{{route('registration.index')}}" class="get-started-btn scrollto">Register</a>
         </div>
     </header>
     <!-- End Header -->

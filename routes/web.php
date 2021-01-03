@@ -9,6 +9,9 @@ use App\Http\Controllers\clientUser\homeController;
 use App\Http\Controllers\clientUser\profileController;
 use App\Http\Controllers\clientUser\companyController;
 use App\Http\Controllers\clientUser\companylistController;
+use App\Http\Controllers\clientUser\proposalController;
+use App\Http\Controllers\clientUser\serviceController;
+use App\Http\Controllers\clientUser\chatController;
 
 Route::get('/', function () {
     return view('clientUser.main');
@@ -33,5 +36,12 @@ Route::group(['middleware' => ['session']], function () {
 
     Route::get('/companylist', [companylistController::class, 'index'])->name('companylist.index');
     Route::get('/companylist/{id}',  [companylistController::class, 'lifecycle'])->name('companylist.lifecycle');
+
+    Route::get('/proposal', [proposalController::class, 'index'])->name('proposal.index');
+    
+    Route::get('/service', [serviceController::class, 'index'])->name('service.index');
+    
+    Route::get('/chat', [chatController::class, 'index'])->name('chat.index');
+    
 
 });
