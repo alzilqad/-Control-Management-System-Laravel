@@ -43,7 +43,7 @@
                         <button type="button" class="btn btn-warning" data-dismiss="modal">
                           Cancel
                         </button>
-                        <input type="submit" class="btn btn-success" name="submit" value="Save Changes" />
+                        <input type="submit" class="btn btn-success" name="submit" value="Create Note" />
                       </div>
                     </div>
                   </div>
@@ -55,11 +55,6 @@
 
             <div class="col-12">
               <table id="notesTable" class="table table-striped table-bordered" style="width: 100%">
-                <% if(error!="" && error!=null) {%>
-
-                <a style="color: red"><%=error[0].msg%></a>
-
-                <% } %>
                 <thead>
                   <tr>
                     <th>Title</th>
@@ -69,13 +64,12 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <% note.forEach( function(std){ %>
+                  @foreach ($notes as $note)
                   <tr>
-                    <td><a type="button" href="#" data-toggle="modal" data-target="#show-notes-modal"><%=std.title%></a></td>
-                    <td><%=std.posted_by%></td>
+                    <td><a type="button" href="#" data-toggle="modal" data-target="#show-notes-modal">{{$note->title}}</a></td>
+                    <td>{{$note->posted_by}}</td>
                     <td>
-                      <%=
-                        std.creation_date.getDate()+"/"+(std.creation_date.getMonth()+1)+"/"+std.creation_date.getFullYear();%>
+                      {{$note->creation_date}}
                     </td>
                     <td>
                       <form action="/client/company/<%=id%>/appointments/edit/<%=std.id%>" method="post">
@@ -93,28 +87,31 @@
                               <div class="modal-body">
                                 <div class="row">
                                   <div class="col">
-                                    <input class="form-control" type="text" name="title" placeholder="Title" value="<%=std.title%>" /><br />
-                                    <input class="form-control" type="text" name="body" placeholder="Body" value="<%=std.body%>"></input><br />
+                                    Title: <br />
+                                    <input class="form-control" type="text" name="title" value="{{$note->title}}" disabled /><br />
+                                    Body: <br />
+                                    <input class="form-control" type="text" name="body" value="{{$note->body}}" disabled /></input><br />
                                   </div>
                                 </div>
                               </div>
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
-                                <input type="submit" class="btn btn-success" value="Save Changes" />
                               </div>
                             </div>
                           </div>
                         </div>
                       </form>
-
-                      <%if(std.posted_by==std.username || std.posted_by==std.full_name) {%>
+                      @if($note->posted_by==$note->username || $note->posted_by==$note->full_name)
+                      <form action="/client/company/<%=id%>/notes/delete/<%=std.id%>" method="post">
+                        <button class="btn btn-success text-light">Edit</button>
+                      </form>
                       <form action="/client/company/<%=id%>/notes/delete/<%=std.id%>" method="post">
                         <button class="btn btn-danger text-light">Delete</button>
                       </form>
-                      <% } %>
+                      @endif
                     </td>
                   </tr>
-                  <% }); %>
+                  @endforeach
                 </tbody>
               </table>
             </div>

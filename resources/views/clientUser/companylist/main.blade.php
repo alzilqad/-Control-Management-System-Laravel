@@ -12,18 +12,18 @@
 <div class="row mt-4 justify-content-center">
     <div class="col col-2">
         <button class="active btn btn-primary btn-block">
-            <a href="/companylist/<%=id%>"><span class="text-light">Details</span></a></button><br />
+            <a href="{{ route('companylist.lifecycle', Session::get('company_id')) }}"><span class="text-light">Details</span></a></button><br />
     </div>
     <div class="col col-2">
         <button class="btn btn-secondary btn-block">
-            <a href="/companylist/<%=id%>/services"><span class="text-light">Services</span></a></button><br />
+            <a href="{{ route('companylist.service', Session::get('company_id')) }}"><span class="text-light">Services</span></a></button><br />
     </div>
     <div class="col col-2">
         <button class="btn btn-info btn-block">
-            <a href="/companylist/<%=id%>/proposals"><span class="text-light">Proposals</span></a></button><br />
+            <a href="{{ route('companylist.proposal', Session::get('company_id')) }}"><span class="text-light">Proposals</span></a></button><br />
     </div>
     <div class="col col-2">
         <button class="btn btn-dark btn-block">
-            <a href="/companylist/<%=id%>/chat"><span class="text-light">Chat</span></a></button><br />
+            <a href="{{ route('chat.index') }}"><span class="text-light">Chat</span></a></button><br />
     </div>
 </div>

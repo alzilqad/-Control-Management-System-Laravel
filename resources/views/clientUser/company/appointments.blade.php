@@ -43,7 +43,7 @@
                         <button type="button" class="btn btn-warning" data-dismiss="modal">
                           Cancel
                         </button>
-                        <input type="submit" name="submit" class="btn btn-success" value="Save Changes" />
+                        <input type="submit" name="submit" class="btn btn-success" value="Create Appointment" />
                       </div>
                     </div>
                   </div>
@@ -54,11 +54,7 @@
 
             <div class="col-12">
               <table id="appointmentsTable" class="table table-striped table-bordered" style="width: 100%">
-                <% if(error!="" && error!=null) {%>
 
-                <a style="color: red"><%=error[0].msg%></a>
-
-                <% } %>
                 <thead>
                   <tr>
                     <th>Title</th>
@@ -69,17 +65,16 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <% appointment.forEach( function(std){ %>
+                @foreach ($appointments as $appointment)
                   <tr>
-                    <td><a href="#" data-toggle="modal" data-target="#editModal"><%=std.title%></a></td>
-                    <td><%=std.posted_by%></td>
+                    <td><a href="#" data-toggle="modal" data-target="#editModal">{{$appointment->title}}</a></td>
+                    <td>{{$appointment->posted_by}}</td>
                     <td>
-                      <%=
-                        std.creation_date.getDate()+"/"+(std.creation_date.getMonth()+1)+"/"+std.creation_date.getFullYear();%>
+                      {{$appointment->creation_date}}
                     </td>
                     <td>
-                      <%=
-                        std.appointment_date.getDate()+"/"+(std.appointment_date.getMonth()+1)+"/"+std.appointment_date.getFullYear();%>
+                      {{$appointment->appointment_date}}
+                      
                     </td>
 
                     <td class="text-center">
@@ -99,9 +94,9 @@
                               <div class="modal-body">
                                 <div class="row">
                                   <div class="col">
-                                    <input class="form-control" type="date" name="date" placeholder="Date" value="<%= std.appointment_date.getFullYear()+'-'+(std.appointment_date.getMonth() < 10 ? '0' : '')+(std.appointment_date.getMonth()+1)+'-'+(std.appointment_date.getDate() < 10 ? '0' : '')+std.appointment_date.getDate() %>" /><br />
-                                    <input class="form-control" type="text" name="title" placeholder="Title" value="<%=std.title%>" /><br />
-                                    <input class="form-control" type="text" name="body" placeholder="Body" value="<%=std.body%>"></input><br />
+                                    <input class="form-control" type="date" name="date" placeholder="Date" value="{{$appointment->appointment_date}}" /><br />
+                                    <input class="form-control" type="text" name="title" placeholder="Title" value="{{$appointment->title}}" /><br />
+                                    <input class="form-control" type="text" name="body" placeholder="Body" value="{{$appointment->body}}"></input><br />
                                   </div>
                                 </div>
                               </div>
@@ -114,15 +109,17 @@
                         </div>
                       </form>
 
-                      <%if(std.posted_by==std.username || std.posted_by==std.full_name) {%>
+                      @if($appointment->posted_by==$appointment->username || $appointment->posted_by==$appointment->full_name)
+                      <form action="/client/company/<%=id%>/notes/delete/<%=std.id%>" method="post">
+                        <button class="btn btn-success text-light">Edit</button>
+                      </form>
                       <form action="/client/company/<%=id%>/appointments/delete/<%=std.id%>" method="post">
                         <button class="btn btn-danger text-light">Delete</button>
                       </form>
                     </td>
-                    <% } %>
-
+                    @endif
                   </tr>
-                  <% }); %>
+                  @endforeach
                 </tbody>
               </table>
             </div>

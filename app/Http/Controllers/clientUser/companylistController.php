@@ -29,6 +29,7 @@ class companylistController extends Controller
             ->first();
 
         if ($company != null) {
+            $req->session()->put('company_id', $id);
             $req->session()->put('company_name', $company->company_name);
             $req->session()->put('company_contact', $company->contact_number);
             return view('clientUser.companylist.lifecycle', compact('company'));
@@ -45,7 +46,7 @@ class companylistController extends Controller
             ->get();
 
         if ($services != null) {
-
+            $req->session()->put('company_id', $id);
             return view('clientUser.companylist.services', compact('services'));
         } else {
             return back();
@@ -63,10 +64,11 @@ class companylistController extends Controller
             ->get();
 
         if ($proposals != null) {
-
+            $req->session()->put('company_id', $id);
             return view('clientUser.companylist.proposals', compact('proposals'));
         } else {
             return back();
         }
     }
+
 }

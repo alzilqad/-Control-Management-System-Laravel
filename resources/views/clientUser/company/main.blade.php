@@ -13,27 +13,27 @@
     <div class="row row-xl-12 justify-content-center">
         <div class="col col-4">
             <button class="active btn btn-primary btn-block">
-                <a href="/client/company/<%=company.id%>"><span class="text-light">Details</span></a></button><br />
+                <a href="{{ route('company.lifecycle', Session::get('company_id')) }}"><span class="text-light">Details</span></a></button><br />
         </div>
         <div class="col col-4">
             <button class="btn btn-secondary btn-block">
-                <a href="/client/company/<%=company.id%>/services"><span class="text-light">Services</span></a></button><br />
+                <a href="{{ route('company.service', Session::get('company_id')) }}"><span class="text-light">Services</span></a></button><br />
         </div>
         <div class="col col-4">
             <button class="btn btn-dark btn-block">
-                <a href="/client/company/<%=company.id%>/chat"><span class="text-light">Chat</span></a></button><br />
+                <a href="{{route('chat.index')}}"><span class="text-light">Chat</span></a></button><br />
         </div>
         <div class="col col-4">
             <button class="btn btn-info btn-block">
-                <a href="/client/company/<%=company.id%>/appointments"><span class="text-light">Appoitments</span></a></button><br />
+                <a href="{{ route('company.appointment', Session::get('company_id')) }}"><span class="text-light">Appoitments</span></a></button><br />
         </div>
         <div class="col col-4">
             <button class="btn btn-warning btn-block">
-                <a href="/client/company/<%=company.id%>/notes"><span class="text-light">Notes</span></a></button><br />
+                <a href="{{ route('company.note', Session::get('company_id')) }}"><span class="text-light">Notes</span></a></button><br />
         </div>
         <div class="col col-4">
             <button class="btn btn-danger btn-block">
-                <a href="/client/company/<%=company.id%>/proposals"><span class="text-light">Proposals</span></a></button><br />
+                <a href="{{ route('company.proposal', Session::get('company_id')) }}"><span class="text-light">Proposals</span></a></button><br />
         </div>
     </div>
 </div>

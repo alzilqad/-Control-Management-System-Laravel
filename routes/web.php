@@ -35,14 +35,16 @@ Route::group(['middleware' => ['session']], function () {
     Route::get('/company/{id}',  [companyController::class, 'lifecycle'])->name('company.lifecycle');
     Route::get('/company/{id}/services',  [companyController::class, 'service'])->name('company.service');
     Route::get('/company/{id}/proposals',  [companyController::class, 'proposal'])->name('company.proposal');
+    Route::get('/company/{id}/notes',  [companyController::class, 'note'])->name('company.note');
+    Route::get('/company/{id}/appointments',  [companyController::class, 'appointment'])->name('company.appointment');
 
     Route::get('/companylist', [companylistController::class, 'index'])->name('companylist.index');
     Route::get('/companylist/{id}',  [companylistController::class, 'lifecycle'])->name('companylist.lifecycle');
     Route::get('/companylist/{id}/services',  [companylistController::class, 'service'])->name('companylist.service');
     Route::get('/companylist/{id}/proposals',  [companylistController::class, 'proposal'])->name('companylist.proposal');
-
-    Route::get('/proposal', [proposalController::class, 'index'])->name('proposal.index');
     
+    Route::get('/proposal', [proposalController::class, 'index'])->name('proposal.index');
+
     Route::get('/service', [serviceController::class, 'index'])->name('service.index');
     
     Route::get('/chat', [chatController::class, 'index'])->name('chat.index');
