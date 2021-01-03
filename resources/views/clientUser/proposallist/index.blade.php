@@ -34,7 +34,7 @@
                                         <td>
                                             <a href="#" data-toggle="modal" data-target="#editModal">{{$proposal->title}}</a>
                                         </td>
-                                        <td>{{$proposal->title}}</td>
+                                        <td>{{$proposal->posted_by}}</td>
                                         <td>
                                             {{$proposal->starting_date}}
                                         </td>
@@ -102,6 +102,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        
                                         <td class="text-center">
                                             <form action="/proposallist/optup/<%=std.id%>" method="post">
                                             <button type="button" class="btn btn-success">

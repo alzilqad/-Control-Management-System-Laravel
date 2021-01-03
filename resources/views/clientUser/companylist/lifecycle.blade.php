@@ -2,35 +2,7 @@
 
 <main id="main">
     <section>
-        <div class="row mt-4 justify-content-center">
-            <div class="col col-xl-8 border rounded border-primary">
-                <div class="border-bottom text-center">
-                    <label class="mt-4" for="">
-                        <h2><b>{{$company->company_name}}</b></h2>
-                    </label><br />
-                    <label class="mt-2" for="">Phone: {{$company->contact_number}}</label><br />
-                </div>
-            </div>
-        </div>
-
-        <div class="row mt-4 justify-content-center">
-            <div class="col col-2">
-                <button class="active btn btn-primary btn-block">
-                    <a href="/companylist/<%=id%>"><span class="text-light">Details</span></a></button><br />
-            </div>
-            <div class="col col-2">
-                <button class="btn btn-secondary btn-block">
-                    <a href="/companylist/<%=id%>/services"><span class="text-light">Services</span></a></button><br />
-            </div>
-            <div class="col col-2">
-                <button class="btn btn-info btn-block">
-                    <a href="/companylist/<%=id%>/proposals"><span class="text-light">Proposals</span></a></button><br />
-            </div>
-            <div class="col col-2">
-                <button class="btn btn-dark btn-block">
-                    <a href="/companylist/<%=id%>/chat"><span class="text-light">Chat</span></a></button><br />
-            </div>
-        </div>
+        @include('clientUser.companylist.main')
 
         <div class="row mt-4 justify-content-center">
             <div class="col col-xl-9">

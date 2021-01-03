@@ -2,45 +2,7 @@
 
 <main id="main">
     <section>
-        <div class="row mt-4 justify-content-center">
-            <div class="col col-xl-8 border rounded border-primary">
-                <div class="border-bottom text-center">
-                    <label class="mt-4" for="">
-                        <h2><b><%=company_name%></b></h2>
-                    </label><br />
-                    <label class="mt-2" for="">Phone: <%=company_contact%></label><br />
-                </div>
-            </div>
-        </div>
-
-        <div class="row mt-4 justify-content-center">
-            <div class="row row-xl-12 justify-content-center">
-                <div class="col col-4">
-                    <button class="active btn btn-primary btn-block">
-                        <a href="/client/company/<%=id%>"><span class="text-light">Details</span></a></button><br />
-                </div>
-                <div class="col col-4">
-                    <button class="btn btn-secondary btn-block">
-                        <a href="/client/company/<%=id%>/services"><span class="text-light">Services</span></a></button><br />
-                </div>
-                <div class="col col-4">
-                    <button class="btn btn-dark btn-block">
-                        <a href="/client/company/<%=id%>/chat"><span class="text-light">Chat</span></a></button><br />
-                </div>
-                <div class="col col-4">
-                    <button class="btn btn-info btn-block">
-                        <a href="/client/company/<%=id%>/appointments"><span class="text-light">Appoitments</span></a></button><br />
-                </div>
-                <div class="col col-4">
-                    <button class="btn btn-warning btn-block">
-                        <a href="/client/company/<%=id%>/notes"><span class="text-light">Notes</span></a></button><br />
-                </div>
-                <div class="col col-4">
-                    <button class="btn btn-danger btn-block">
-                        <a href="/client/company/<%=id%>/proposals"><span class="text-light">Proposals</span></a></button><br />
-                </div>
-            </div>
-        </div>
+        @include('clientUser.company.main')
 
         <div class="row mt-4 justify-content-center">
             <div class="col col-xl-9">
@@ -61,14 +23,15 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <% service.forEach( function(std){ %>
+                                    @foreach ($services as $service)
+
                                     <tr>
-                                        <td><%= std.name %></td>
-                                        <td><%= std.type %></td>
-                                        <td><%= std.cost %></td>
-                                        <td><%= std.status %></td>
+                                        <td>{{$service->name}}</td>
+                                        <td>{{$service->type}}</td>
+                                        <td>{{$service->cost}}</td>
+                                        <td>{{$service->status}}</td>
                                     </tr>
-                                    <% }); %>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
