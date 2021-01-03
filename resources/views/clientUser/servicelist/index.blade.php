@@ -27,31 +27,29 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <% services.forEach( function(std){ %>
+                                @foreach ($services as $service)
                                 <tr>
-                                    <td><%= std.service_history_id %></td>
-                                    <td><%= std.description %></td>
+                                    <td>{{$service->service_history_id}}</td>
+                                    <td>{{$service->description}}</td>
                                     <td>
-                                        <%=
-                                            std.start_date.getDate()+"/"+(std.start_date.getMonth()+1)+"/"+std.start_date.getFullYear();%>
+                                        {{$service->start_date}}
                                     </td>
                                     <td>
-                                        <%=
-                                            std.end_date.getDate()+"/"+(std.end_date.getMonth()+1)+"/"+std.end_date.getFullYear();
-                                            %>
+                                        {{$service->end_date}}
+
                                     </td>
-                                    <td><%= std.name %></td>
-                                    <td><%= std.type %></td>
-                                    <td><%= std.cost %></td>
-                                    <td><%= std.company_name %></td>
-                                    <td><%= std.company_address %></td>
-                                    <td><%= std.contact_number %></td>
+                                    <td>{{$service->name}}</td>
+                                    <td>{{$service->type}}</td>
+                                    <td>{{$service->cost}}</td>
+                                    <td>{{$service->company_name}}</td>
+                                    <td>{{$service->company_address}}</td>
+                                    <td>{{$service->contact_number}}</td>
                                 </tr>
-                                <% }) %>
+                                @endforeach
                             </tbody>
                         </table>
                         <div class="text-center" id="printBtnID">
-                            <button class="btn w-50 btn-success" onclick="printFile('printBtnID','proposalTable')">
+                            <button class="btn w-50 btn-success" onclick="printFile('printBtnID','serviceTable')">
                                 Download
                             </button>
                         </div>

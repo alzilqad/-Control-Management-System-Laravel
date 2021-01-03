@@ -23,7 +23,7 @@ class loginController extends Controller
                         ->first();
 
         if($user!=null){
-            $req->session()->put('id', $user['client_id']);
+            $req->session()->put('id', $user['id']);
             $req->session()->put('username', $user['username']);
             $req->session()->put('type', 'client');
 
