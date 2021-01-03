@@ -7,6 +7,8 @@ use App\Http\Controllers\clientUser\logoutController;
 use App\Http\Controllers\clientUser\registrationController;
 use App\Http\Controllers\clientUser\homeController;
 use App\Http\Controllers\clientUser\profileController;
+use App\Http\Controllers\clientUser\companyController;
+use App\Http\Controllers\clientUser\companylistController;
 
 Route::get('/', function () {
     return view('clientUser.main');
@@ -25,4 +27,11 @@ Route::group(['middleware' => ['session']], function () {
     Route::get('/profile', [profileController::class, 'index'])->name('profile.index');
     Route::get('/profile/edit', [profileController::class, 'edit'])->name('profile.edit.index');
     Route::post('/profile/edit', [profileController::class, 'update']);
+
+    Route::get('/company', [companyController::class, 'index'])->name('company.index');
+    Route::get('/company/{id}',  [companyController::class, 'lifecycle'])->name('company.lifecycle');
+
+    Route::get('/companylist', [companylistController::class, 'index'])->name('companylist.index');
+    Route::get('/companylist/{id}',  [companylistController::class, 'lifecycle'])->name('companylist.lifecycle');
+
 });
