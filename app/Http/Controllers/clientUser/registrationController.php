@@ -36,7 +36,6 @@ class registrationController extends Controller
         $user->full_name = $req->full_name;
         $user->contact_no = $req->contact_no;
         $user->email = $req->email;
-        $user->email = $req->email;
         $user->address = $req->address;
         $user->country = $req->country;
         $user->gender = $req->gender;

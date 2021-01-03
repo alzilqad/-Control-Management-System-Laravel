@@ -120,12 +120,12 @@
                                 <div class="col-4">
                                     <h5 class="text-left">
                                         Welcome,<br />
-                                        <%= user.full_name %>
+                                        {{$user->full_name}}
                                     </h5>
                                 </div>
                                 <div class="col-4 text-right">
                                     <button class="btn btn-warning mr-1">
-                                        <a href="/client/profile/edit/">Edit</a>
+                                        <a href="{{route('profile.edit.index')}}">Edit</a>
                                     </button>
                                 </div>
                             </div>
@@ -133,7 +133,7 @@
                         <form method="POST" enctype="multipart/form-data">
                             <div class="text-center mt-3 mb-2">
                                 <img
-                                    src="/assets/img/team/team-3.jpg"
+                                    src="{{ asset('img/team/team-3.jpg') }}"
                                     alt="No Image.."
                                     id="manager-profile-pic"
                                 /><br /><br />
@@ -157,43 +157,42 @@
                             <tbody>
                                 <tr>
                                     <td>Name :</td>
-                                    <td><%= user.full_name %></td>
+                                    <td>{{$user->full_name}}</td>
                                 </tr>
                                 <tr>
                                     <td>Username :</td>
-                                    <td><%= user.username %></td>
+                                    <td>{{$user->username}}</td>
                                 </tr>
                                 <tr>
                                     <td>Email :</td>
-                                    <td><%= user.email %></td>
+                                    <td>{{$user->email}}</td>
                                 </tr>
                                 <tr>
                                     <td>Phone :</td>
-                                    <td><%= user.contact_no %></td>
+                                    <td>{{$user->contact_no}}</td>
                                 </tr>
                                 <tr>
                                     <td>Gender :</td>
-                                    <td><%= user.gender %></td>
+                                    <td>{{$user->gender}}</td>
                                 </tr>
                                 <tr>
                                     <td>Date of Birth :</td>
                                     <td>
-                                        <%=
-                                        user.dob.getDate()+"/"+(user.dob.getMonth()+1)+"/"+user.dob.getFullYear();
-                                        %>
+                                        {{$user->dob}}
+                                        
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Address :</td>
-                                    <td><%= user.address %></td>
+                                    <td>{{$user->address}}</td>
                                 </tr>
                                 <tr>
                                     <td>Country :</td>
-                                    <td><%= user.country %></td>
+                                    <td>{{$user->country}}</td>
                                 </tr>
                                 <tr>
                                     <td>Status :</td>
-                                    <td><%= user.status %></td>
+                                    <td>{{$user->status}}</td>
                                 </tr>
                             </tbody>
                         </table>

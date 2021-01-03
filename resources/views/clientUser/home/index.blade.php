@@ -60,7 +60,7 @@
           <li><a href="/companylist">Company</a></li>
           <li><a href="/proposallist">Proposal</a></li>
           <li><a href="/servicelist">Service History</a></li>
-          <li><a href="/client/profile">Profile</a></li>
+          <li><a href="{{route('profile.index')}}">Profile</a></li>
           <li><a href="/chat">Chat</a></li>
           <li><a href="{{route('logout.index')}}">Sign Out</a></li>
         </ul>
