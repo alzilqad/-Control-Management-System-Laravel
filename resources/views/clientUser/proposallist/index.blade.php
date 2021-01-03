@@ -14,8 +14,6 @@
                     <div class="row m-0 p-0">
                         <div class="col-6 bg-primary mb-3 pt-3">
                             <h5 class="text-light">Proposals</h5>
-                            <button class="btn" id="btn1">Click</button>
-                            <input type="text" id="text1" value="Text" disabled />
                         </div>
                         <div class="col-6 text-right bg-primary mb-3 pt-3"></div>
                         <div class="col-12">
@@ -31,21 +29,19 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <% proposal.forEach( function(std){ %>
+                                    @foreach ($proposals as $proposal)
                                     <tr>
                                         <td>
-                                            <a href="#" data-toggle="modal" data-target="#editModal"><%=std.title%></a>
+                                            <a href="#" data-toggle="modal" data-target="#editModal">{{$proposal->title}}</a>
                                         </td>
-                                        <td><%=std.posted_by%></td>
+                                        <td>{{$proposal->title}}</td>
                                         <td>
-                                            <%=
-                                                std.starting_date.getDate()+"/"+(std.starting_date.getMonth()+1)+"/"+std.starting_date.getFullYear();%>
+                                            {{$proposal->starting_date}}
                                         </td>
                                         <td>
-                                            <%=
-                                                std.deadline_date.getDate()+"/"+(std.deadline_date.getMonth()+1)+"/"+std.deadline_date.getFullYear();%>
+                                            {{$proposal->deadline_date}}
                                         </td>
-                                        <td><%=std.status%></td>
+                                        <td>{{$proposal->status}} </td>
 
                                         <div class="modal text-left fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
@@ -61,26 +57,40 @@
                                                     <div class="modal-body">
                                                         <div class="row">
                                                             <div class="col">
-                                                                <input class="form-control" type="text" name="title" placeholder="Title" value="<%=std.title%>" /><br />
-                                                                <input class="form-control" type="text" name="subject" placeholder="Subject" value="<%=std.subject%>" /><br />
-                                                                <input class="form-control" type="text" name="body" placeholder="Body" value="<%=std.body%>" /><br />
-                                                                <input class="form-control" type="text" name="customer_name" placeholder="Customer" value="<%=std.customer_name%>" /><br />
+                                                                Title:<br />
+                                                                <input class="form-control" type="text" name="title" disabled value="{{$proposal->title}}" /><br />
+                                                                Subject:<br />
+                                                                <input class="form-control" type="text" name="subject" disabled value="{{$proposal->subject}}" /><br />
+                                                                Body:<br />
+                                                                <input class="form-control" type="text" name="body" disabled value="{{$proposal->body}}" /><br />
+                                                                Customer Name:<br />
+                                                                <input class="form-control" type="text" name="customer_name" disabled value="{{$proposal->customer_name}}" /><br />
                                                                 Starting
                                                                 Date:<br />
-                                                                <input class="form-control" type="date" name="starting_date" placeholder="Date" value="<%= std.starting_date.getFullYear()+'-'+(std.starting_date.getMonth() < 10 ? '0' : '')+(std.starting_date.getMonth()+1)+'-'+(std.starting_date.getDate() < 10 ? '0' : '')+std.starting_date.getDate()%>" /><br />
+                                                                <input class="form-control" type="date" name="starting_date" disabled value="{{$proposal->starting_date}}" /><br />
                                                                 Deadline
                                                                 Date:<br />
-                                                                <input class="form-control" type="date" name="deadline_date" placeholder="Deadline Date" value="<%= std.deadline_date.getFullYear()+'-'+(std.deadline_date.getMonth() < 10 ? '0' : '')+(std.deadline_date.getMonth()+1)+'-'+(std.deadline_date.getDate() < 10 ? '0' : '')+std.deadline_date.getDate()%>" /><br />
-                                                                <input class="form-control" type="text" name="address" placeholder="Address" value="<%=std.address%>" /><br />
-                                                                <input class="form-control" type="text" name="city" placeholder="City" value="<%=std.city%>" /><br />
-                                                                <input class="form-control" type="text" name="state" placeholder="State" value="<%=std.state%>" /><br />
-                                                                <input class="form-control" type="text" name="country" placeholder="Country" value="<%=std.country%>" /><br />
-                                                                <input class="form-control" type="text" name="zip_code" placeholder="Zip Code" value="<%=std.zip_code%>" /><br />
-                                                                <input class="form-control" type="text" name="email" placeholder="Email" value="<%=std.email%>" /><br />
-                                                                <input class="form-control" type="text" name="phone" placeholder="Phone" value="<%=std.phone%>" /><br />
-                                                                <input class="form-control" type="text" name="item" placeholder="Select Item" value="<%=std.item%>" /><br />
-                                                                <input class="form-control" type="text" name="quantity" placeholder="Quantity" value="<%=std.quantity%>" /><br />
-                                                                <input class="form-control" type="text" name="rate" placeholder="Price Rate Pcs" value="<%=std.rate%>" /><br />
+                                                                <input class="form-control" type="date" name="deadline_date" disabled value="{{$proposal->deadline_date}}" /><br />
+                                                                Address:<br />
+                                                                <input class="form-control" type="text" name="address" disabled value="{{$proposal->address}}" /><br />
+                                                                City:<br />
+                                                                <input class="form-control" type="text" name="city" disabled value="{{$proposal->city}}" /><br />
+                                                                State:<br />
+                                                                <input class="form-control" type="text" name="state" disabled value="{{$proposal->state}}" /><br />
+                                                                Country:<br />
+                                                                <input class="form-control" type="text" name="country" disabled value="{{$proposal->country}}" /><br />
+                                                                Zip Code:<br />
+                                                                <input class="form-control" type="text" name="zip_code" disabled value="{{$proposal->zip_code}}" /><br />
+                                                                Email:<br />
+                                                                <input class="form-control" type="text" name="email" disabled value="{{$proposal->email}}" /><br />
+                                                                Phone:<br />
+                                                                <input class="form-control" type="text" name="phone" disabled value="{{$proposal->phone}}" /><br />
+                                                                Item:<br />
+                                                                <input class="form-control" type="text" name="item" disabled value="{{$proposal->item}}" /><br />
+                                                                Quantity:<br />
+                                                                <input class="form-control" type="text" name="quantity" disabled value="{{$proposal->quantity}}" /><br />
+                                                                Price Rate Pcs:<br />
+                                                                <input class="form-control" type="text" name="rate" disabled value="{{$proposal->rate}}" /><br />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -88,32 +98,33 @@
                                                         <button type="button" class="btn btn-warning" data-dismiss="modal">
                                                             Cancel
                                                         </button>
-                                                        <button type="button" class="btn btn-success">
-                                                            Save changes
-                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <td class="text-center">
-                                            <%
-                                                if(std.status.toLowerCase()=="active")
-                                                {%>
+                                            <form action="/proposallist/optup/<%=std.id%>" method="post">
+                                            <button type="button" class="btn btn-success">
+                                                Update
+                                            </button>
+                                            </form>
+                                            @if(strtolower($proposal->status)=='active')
+
                                             <form action="/proposallist/optup/<%=std.id%>" method="post">
                                                 <button class="btn btn-danger">
                                                     Opt Up
                                                 </button>
                                             </form>
-                                            <%} else {%>
+                                            @elseif(strtolower($proposal->status)=='inactive')
                                             <form action="/proposallist/approve/<%=std.id%>" method="post">
                                                 <button class="btn btn-danger">
                                                     Approve
                                                 </button>
                                             </form>
-                                            <%}%>
-                                            </td>
-                                        </tr>
-                                        <% }); %>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
