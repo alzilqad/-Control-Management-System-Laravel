@@ -62,7 +62,7 @@
           <li><a href="/servicelist">Service History</a></li>
           <li><a href="/client/profile">Profile</a></li>
           <li><a href="/chat">Chat</a></li>
-          <li><a href="/logout">Sign Out</a></li>
+          <li><a href="{{route('logout.index')}}">Sign Out</a></li>
         </ul>
       </nav>
       <!-- .nav-menu -->
