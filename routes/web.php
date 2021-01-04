@@ -34,7 +34,10 @@ Route::group(['middleware' => ['session']], function () {
     Route::get('/company', [companyController::class, 'index'])->name('company.index');
     Route::get('/company/{id}',  [companyController::class, 'lifecycle'])->name('company.lifecycle');
     Route::get('/company/{id}/services',  [companyController::class, 'service'])->name('company.service');
+
     Route::get('/company/{id}/proposals',  [companyController::class, 'proposal'])->name('company.proposal');
+    Route::get('/company/{id}/proposals/optup/{id2}',  [companyController::class, 'optUpProposal'])->name('company.proposal.optup');
+    Route::get('/company/{id}/proposals/approve/{id2}',  [companyController::class, 'approveProposal'])->name('company.proposal.approve');
 
     Route::get('/company/{id}/notes',  [companyController::class, 'note'])->name('company.note');
     Route::post('/company/{id}/notes',  [companyController::class, 'createNote']);
@@ -44,12 +47,18 @@ Route::group(['middleware' => ['session']], function () {
     Route::post('/company/{id}/appointments',  [companyController::class, 'createAppointment']);
     Route::get('/company/{id}/appointments/delete/{id2}',  [companyController::class, 'deleteAppointment'])->name('company.appointment.delete');
 
+
     Route::get('/companylist', [companylistController::class, 'index'])->name('companylist.index');
     Route::get('/companylist/{id}',  [companylistController::class, 'lifecycle'])->name('companylist.lifecycle');
     Route::get('/companylist/{id}/services',  [companylistController::class, 'service'])->name('companylist.service');
     Route::get('/companylist/{id}/proposals',  [companylistController::class, 'proposal'])->name('companylist.proposal');
+    Route::get('/companylist/{id}/proposals/optup/{id2}',  [companylistController::class, 'optUpProposal'])->name('companylist.proposal.optup');
+    Route::get('/companylist/{id}/proposals/approve/{id2}',  [companylistController::class, 'approveProposal'])->name('companylist.proposal.approve');
+
     
     Route::get('/proposal', [proposalController::class, 'index'])->name('proposal.index');
+    Route::get('/proposal/optup/{id}',  [proposalController::class, 'optUpProposal'])->name('proposal.optup');
+    Route::get('/proposal/approve/{id}',  [proposalController::class, 'approveProposal'])->name('proposal.approve');
 
     Route::get('/service', [serviceController::class, 'index'])->name('service.index');
     

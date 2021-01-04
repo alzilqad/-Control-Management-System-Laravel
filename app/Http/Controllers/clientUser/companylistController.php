@@ -5,8 +5,7 @@ namespace App\Http\Controllers\clientUser;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\clientUser\Company;
-
+use App\Models\clientUser\Proposal;
 
 class companylistController extends Controller
 {
@@ -66,6 +65,30 @@ class companylistController extends Controller
         if ($proposals != null) {
             $req->session()->put('company_id', $id);
             return view('clientUser.companylist.proposals', compact('proposals'));
+        } else {
+            return back();
+        }
+    }
+
+    public function optUpProposal(Request $req, $id, $id2)
+    {
+        $proposal = Proposal::find($id2);
+        $proposal->status = 'Inactive';
+
+        if ($proposal->save()) {
+            return redirect()->route('companylist.proposal', $req->session()->get('company_id'));
+        } else {
+            return back();
+        }
+    }
+
+    public function approveProposal(Request $req, $id, $id2)
+    {
+        $proposal = Proposal::find($id2);
+        $proposal->status = 'Active';
+
+        if ($proposal->save()) {
+            return redirect()->route('companylist.proposal', $req->session()->get('company_id'));
         } else {
             return back();
         }

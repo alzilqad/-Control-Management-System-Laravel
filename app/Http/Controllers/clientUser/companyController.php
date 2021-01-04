@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\clientUser\Note;
 use App\Models\clientUser\Appointment;
-
+use App\Models\clientUser\Proposal;
 class companyController extends Controller
 {
     public function index(Request $req)
@@ -78,17 +78,32 @@ class companyController extends Controller
         }
     }
 
+    public function optUpProposal(Request $req, $id, $id2)
+    {
+        $proposal = Proposal::find($id2);
+        $proposal->status = 'Inactive';
+
+        if ($proposal->save()) {
+            return redirect()->route('company.proposal', $req->session()->get('company_id'));
+        } else {
+            return back();
+        }
+    }
+
+    public function approveProposal(Request $req, $id, $id2)
+    {
+        $proposal = Proposal::find($id2);
+        $proposal->status = 'Active';
+
+        if ($proposal->save()) {
+            return redirect()->route('company.proposal', $req->session()->get('company_id'));
+        } else {
+            return back();
+        }
+    }
+
     public function note(Request $req, $id)
     {
-        // $notes = DB::table('note')
-        //     ->where('note.client_id', '=', $req->session()->get('id'))
-        //     ->where('note.manager_id', '=', $id)
-        //     ->join('manager', 'note.manager_id', '=', 'manager.id')
-        //     ->join('client', 'note.client_id', '=', 'client.client_id')
-        //     ->join('company', 'manager.company_name', '=', 'company.company_name')
-        //     ->select('note.*', 'client.*', 'manager.company_name')
-        //     ->get();
-
         $notes = DB::table('affiliated_companies')
             ->where('affiliated_companies.affiliated_company_id', '=', $id)
             ->join('company', 'affiliated_companies.company_id', '=', 'company.id')
@@ -98,8 +113,6 @@ class companyController extends Controller
             ->join('client', 'note.client_id', '=', 'client.client_id')
             ->select('note.*', 'client.*', 'manager.company_name')
             ->get();
-
-
 
         if ($notes != null) {
             $req->session()->put('company_id', $id);

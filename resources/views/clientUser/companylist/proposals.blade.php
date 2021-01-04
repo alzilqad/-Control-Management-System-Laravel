@@ -159,24 +159,22 @@
                                         <td class="text-center">
                                             @if($proposal->posted_by == Session::get('username'))
                                             <form action="/proposallist/optup/<%=std.id%>" method="post">
-                                                <button type="button" class="btn btn-success">
+                                            @csrf
+                                                <button type="button" class="btn btn-warning">
                                                     Update
                                                 </button>
                                             </form>
                                             @endif
-                                            @if(strtolower($proposal->status)=='active')
 
-                                            <form action="/proposallist/optup/<%=std.id%>" method="post">
-                                                <button class="btn btn-danger">
-                                                    Opt Up
-                                                </button>
-                                            </form>
+                                            @if(strtolower($proposal->status)=='active')
+                                            <a href="{{ route('companylist.proposal.optup', ['id'=> Session::get('company_id'), 'id2' => $proposal->id]) }}" method="get">
+                                                <button class="btn btn-danger text-light">Opt Up</button>
+                                            </a>
+
                                             @elseif(strtolower($proposal->status)=='inactive')
-                                            <form action="/proposallist/approve/<%=std.id%>" method="post">
-                                                <button class="btn btn-danger">
-                                                    Approve
-                                                </button>
-                                            </form>
+                                            <a href="{{ route('companylist.proposal.approve', ['id'=> Session::get('company_id'), 'id2' => $proposal->id]) }}" method="get">
+                                                <button class="btn btn-success text-light">Approve</button>
+                                            </a>
                                             @endif
                                         </td>
                                     </tr>
