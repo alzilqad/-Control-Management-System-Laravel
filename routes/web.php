@@ -41,7 +41,8 @@ Route::group(['middleware' => ['session']], function () {
     Route::get('/company/{id}/notes/delete/{id2}',  [companyController::class, 'deleteNote'])->name('company.note.delete');
 
     Route::get('/company/{id}/appointments',  [companyController::class, 'appointment'])->name('company.appointment');
-
+    Route::post('/company/{id}/appointments',  [companyController::class, 'createAppointment']);
+    Route::get('/company/{id}/appointments/delete/{id2}',  [companyController::class, 'deleteAppointment'])->name('company.appointment.delete');
 
     Route::get('/companylist', [companylistController::class, 'index'])->name('companylist.index');
     Route::get('/companylist/{id}',  [companylistController::class, 'lifecycle'])->name('companylist.lifecycle');

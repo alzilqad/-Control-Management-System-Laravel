@@ -110,6 +110,7 @@
                       </form>
                       @if($note->posted_by==$note->username || $note->posted_by==$note->full_name)
                       <form action="/client/company/<%=id%>/notes/delete/<%=std.id%>" method="post">
+                      @csrf
                         <button class="btn btn-success text-light">Edit</button>
                       </form>
                       <a href="{{ route('company.note.delete', ['id'=> Session::get('company_id'), 'id2' => $note->id]) }}" method="get">

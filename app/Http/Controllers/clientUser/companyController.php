@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\clientUser\Note;
+use App\Models\clientUser\Appointment;
 
 class companyController extends Controller
 {
@@ -142,7 +143,7 @@ class companyController extends Controller
     {
         $note = Note::find($id2);
 
-        if ($note!==null) {
+        if ($note !== null) {
             $note->delete();
             return redirect()->route('company.note', $req->session()->get('company_id'));
         } else {
@@ -164,6 +165,50 @@ class companyController extends Controller
         if ($appointments != null) {
             $req->session()->put('company_id', $id);
             return view('clientUser.company.appointments', compact('appointments'));
+        } else {
+            return back();
+        }
+    }
+
+    public function createAppointment(Request $req, $id)
+    {
+        $req->validate([
+            'title' => 'required',
+            'body' => 'required',
+            'date' => 'required'
+        ]);
+
+        $manager = DB::table('affiliated_companies')
+            ->where('affiliated_companies.affiliated_company_id', '=', $req->session()->get('company_id'))
+            ->join('company', 'company.id', '=', 'affiliated_companies.company_id')
+            ->select('company.manager_id')
+            ->get()
+            ->first();
+
+        $appointment = new Appointment();
+
+        $appointment->title = $req->title;
+        $appointment->body = $req->body;
+        $appointment->appointment_date = $req->date;
+        $appointment->creation_date = date("Y-m-d");
+        $appointment->manager_id = $manager->manager_id;
+        $appointment->clients_id = $req->session()->get('id');
+        $appointment->posted_by = $req->session()->get('username');
+
+        if ($appointment->save()) {
+            return redirect()->route('company.appointment', $req->session()->get('company_id'));
+        } else {
+            return back();
+        }
+    }
+
+    public function deleteAppointment(Request $req, $id, $id2)
+    {
+        $appointment = Appointment::find($id2);
+
+        if ($appointment !== null) {
+            $appointment->delete();
+            return redirect()->route('company.appointment', $req->session()->get('company_id'));
         } else {
             return back();
         }

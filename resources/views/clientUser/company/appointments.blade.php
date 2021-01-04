@@ -18,6 +18,7 @@
               </button>
 
               <form method="post">
+                @csrf
                 <!-- Modal -->
                 <div class="modal text-left fade" id="add-appointment-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
@@ -111,11 +112,12 @@
 
                       @if($appointment->posted_by==$appointment->username || $appointment->posted_by==$appointment->full_name)
                       <form action="/client/company/<%=id%>/notes/delete/<%=std.id%>" method="post">
+                      @csrf
                         <button class="btn btn-success text-light">Edit</button>
                       </form>
-                      <form action="/client/company/<%=id%>/appointments/delete/<%=std.id%>" method="post">
+                      <a href="{{ route('company.appointment.delete', ['id'=> Session::get('company_id'), 'id2' => $appointment->id]) }}" method="get">
                         <button class="btn btn-danger text-light">Delete</button>
-                      </form>
+                      </a>
                     </td>
                     @endif
                   </tr>
