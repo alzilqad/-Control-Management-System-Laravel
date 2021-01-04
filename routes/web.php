@@ -14,7 +14,11 @@ use App\Http\Controllers\clientUser\serviceController;
 use App\Http\Controllers\clientUser\chatController;
 
 Route::get('/', function () {
-    return view('clientUser.main');
+    $client = new GuzzleHttp\Client();
+    $res = $client->request('GET', 'GET https://www.googleapis.com/customsearch/v1?key=INSERT_YOUR_API_KEY&cx=017576662512468239146:omuauf_lfve&q=lectures', [
+    'auth' => ['user', 'pass']
+    //return view('clientUser.main');
+    ]);
 });
 
 Route::get('/login', [loginController::class, 'index'])->name('login.index');
