@@ -87,7 +87,7 @@
                                     @foreach ($proposals as $proposal)
                                     <tr>
                                         <td>
-                                            <a href="#" data-toggle="modal" data-target="#editModal">{{$proposal->title}}</a>
+                                            <a href="#" data-toggle="modal" data-target="#editModal{{$proposal->id}}">{{$proposal->title}}</a>
                                         </td>
                                         <td>{{$proposal->posted_by}}</td>
                                         <td>
@@ -98,7 +98,7 @@
                                         </td>
                                         <td>{{$proposal->status}} </td>
 
-                                        <div class="modal text-left fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal text-left fade" id="editModal{{$proposal->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -113,39 +113,39 @@
                                                         <div class="row">
                                                             <div class="col">
                                                                 Title:<br />
-                                                                <input class="form-control" type="text" name="title" disabled value="{{$proposal->title}}" /><br />
+                                                                <input class="form-control" type="text" name="title" value="{{$proposal->title}}" disabled /><br />
                                                                 Subject:<br />
-                                                                <input class="form-control" type="text" name="subject" disabled value="{{$proposal->subject}}" /><br />
+                                                                <input class="form-control" type="text" name="subject" value="{{$proposal->subject}}" disabled /><br />
                                                                 Body:<br />
-                                                                <input class="form-control" type="text" name="body" disabled value="{{$proposal->body}}" /><br />
+                                                                <input class="form-control" type="text" name="body" value="{{$proposal->body}}" disabled /><br />
                                                                 Customer Name:<br />
-                                                                <input class="form-control" type="text" name="customer_name" disabled value="{{$proposal->customer_name}}" /><br />
+                                                                <input class="form-control" type="text" name="customer_name" value="{{$proposal->customer_name}}" disabled /><br />
                                                                 Starting
                                                                 Date:<br />
-                                                                <input class="form-control" type="date" name="starting_date" disabled value="{{$proposal->starting_date}}" /><br />
+                                                                <input class="form-control" type="date" name="starting_date" value="{{$proposal->starting_date}}"  disabled/><br />
                                                                 Deadline
                                                                 Date:<br />
-                                                                <input class="form-control" type="date" name="deadline_date" disabled value="{{$proposal->deadline_date}}" /><br />
+                                                                <input class="form-control" type="date" name="deadline_date" value="{{$proposal->deadline_date}}" disabled /><br />
                                                                 Address:<br />
-                                                                <input class="form-control" type="text" name="address" disabled value="{{$proposal->address}}" /><br />
+                                                                <input class="form-control" type="text" name="address" value="{{$proposal->address}}" disabled /><br />
                                                                 City:<br />
-                                                                <input class="form-control" type="text" name="city" disabled value="{{$proposal->city}}" /><br />
+                                                                <input class="form-control" type="text" name="city" value="{{$proposal->city}}" disabled /><br />
                                                                 State:<br />
-                                                                <input class="form-control" type="text" name="state" disabled value="{{$proposal->state}}" /><br />
+                                                                <input class="form-control" type="text" name="state" value="{{$proposal->state}}" disabled /><br />
                                                                 Country:<br />
-                                                                <input class="form-control" type="text" name="country" disabled value="{{$proposal->country}}" /><br />
+                                                                <input class="form-control" type="text" name="country" value="{{$proposal->country}}" disabled /><br />
                                                                 Zip Code:<br />
-                                                                <input class="form-control" type="text" name="zip_code" disabled value="{{$proposal->zip_code}}" /><br />
+                                                                <input class="form-control" type="text" name="zip_code" value="{{$proposal->zip_code}}" disabled /><br />
                                                                 Email:<br />
-                                                                <input class="form-control" type="text" name="email" disabled value="{{$proposal->email}}" /><br />
+                                                                <input class="form-control" type="text" name="email" value="{{$proposal->email}}" disabled /><br />
                                                                 Phone:<br />
-                                                                <input class="form-control" type="text" name="phone" disabled value="{{$proposal->phone}}" /><br />
+                                                                <input class="form-control" type="text" name="phone" value="{{$proposal->phone}}" disabled /><br />
                                                                 Item:<br />
-                                                                <input class="form-control" type="text" name="item" disabled value="{{$proposal->item}}" /><br />
+                                                                <input class="form-control" type="text" name="item" value="{{$proposal->item}}" disabled /><br />
                                                                 Quantity:<br />
-                                                                <input class="form-control" type="text" name="quantity" disabled value="{{$proposal->quantity}}" /><br />
+                                                                <input class="form-control" type="text" name="quantity" value="{{$proposal->quantity}}" disabled /><br />
                                                                 Price Rate Pcs:<br />
-                                                                <input class="form-control" type="text" name="rate" disabled value="{{$proposal->rate}}" /><br />
+                                                                <input class="form-control" type="text" name="rate" value="{{$proposal->rate}}" disabled /><br />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -158,14 +158,6 @@
                                             </div>
                                         </div>
                                         <td class="text-center">
-                                            @if($proposal->posted_by == Session::get('username'))
-                                            <form action="/proposallist/optup/<%=std.id%>" method="post">
-                                            @csrf
-                                                <button type="button" class="btn btn-warning">
-                                                    Update
-                                                </button>
-                                            </form>
-                                            @endif
 
                                             @if(strtolower($proposal->status)=='active')
                                             <a href="{{ route('company.proposal.optup', ['id'=> Session::get('company_id'), 'id2' => $proposal->id]) }}" method="get">

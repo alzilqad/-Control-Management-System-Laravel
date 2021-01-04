@@ -86,7 +86,7 @@
                                     @foreach ($proposals as $proposal)
                                     <tr>
                                         <td>
-                                            <a href="#" data-toggle="modal" data-target="#editModal">{{$proposal->title}}</a>
+                                            <a href="#" data-toggle="modal" data-target="#editModal{{$proposal->id}}">{{$proposal->title}}</a>
                                         </td>
                                         <td>{{$proposal->posted_by}}</td>
                                         <td>
@@ -97,7 +97,7 @@
                                         </td>
                                         <td>{{$proposal->status}} </td>
 
-                                        <div class="modal text-left fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal text-left fade" id="editModal{{$proposal->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -157,14 +157,6 @@
                                             </div>
                                         </div>
                                         <td class="text-center">
-                                            @if($proposal->posted_by == Session::get('username'))
-                                            <form action="/proposallist/optup/<%=std.id%>" method="post">
-                                            @csrf
-                                                <button type="button" class="btn btn-warning">
-                                                    Update
-                                                </button>
-                                            </form>
-                                            @endif
 
                                             @if(strtolower($proposal->status)=='active')
                                             <a href="{{ route('companylist.proposal.optup', ['id'=> Session::get('company_id'), 'id2' => $proposal->id]) }}" method="get">

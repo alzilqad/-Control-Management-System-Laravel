@@ -18,7 +18,7 @@
 
               <!-- Modal -->
               <div class="modal text-left fade" id="add-notes-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <form method="post">
+                <form action="{{route('company.note.create', Session::get('company_id'))}}" method="post">
                   @csrf
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -67,20 +67,23 @@
                 <tbody>
                   @foreach ($notes as $note)
                   <tr>
-                    <td><a type="button" href="#" data-toggle="modal" data-target="#show-notes-modal">{{$note->title}}</a></td>
+                    <td><a type="button" href="#" data-toggle="modal" data-target="#show-notes-modal{{$note->id}}">{{$note->title}}</a></td>
                     <td>{{$note->posted_by}}</td>
                     <td>
                       {{$note->creation_date}}
                     </td>
                     <td>
-                      <form action="/client/company/<%=id%>/appointments/edit/<%=std.id%>" method="post">
+
+                      <form action="{{ route('company.note.update', ['id'=> Session::get('company_id'), 'id2' => $note->id]) }}" method="post">
+                        @method('put')
+                        @csrf
                         <!-- Button trigger modal -->
                         <!-- Modal -->
-                        <div class="modal fade" id="show-notes-modal" tabindex="-1" role="dialog" aria-labelledby="editLabel" aria-hidden="true">
+                        <div class="modal fade" id="show-notes-modal{{$note->id}}" tabindex="-1" role="dialog" aria-labelledby="editLabel" aria-hidden="true">
                           <div class="modal-dialog" role="document">
                             <div class="modal-content">
                               <div class="modal-header">
-                                <h5 class="modal-title" id="editLabel">Edit Appointment</h5>
+                                <h5 class="modal-title" id="editLabel">note Details</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                   <span aria-hidden="true">&times;</span>
                                 </button>
@@ -88,31 +91,23 @@
                               <div class="modal-body">
                                 <div class="row">
                                   <div class="col">
-                                    Title: <br />
-                                    <input class="form-control" type="text" name="title" value="{{$note->title}}" disabled /><br />
-                                    Body: <br />
-                                    <input class="form-control" type="text" name="body" value="{{$note->body}}" disabled /></input><br />
-                                    Posted By: <br />
-                                    <input class="form-control" type="text" name="name" value="{{$note->posted_by}}" disabled /></input><br />
-                                    Client ID: <br />
-                                    <input class="form-control" type="text" name="client" value="{{$note->client_id}}" disabled /></input><br />
-                                    Manager ID: <br />
-                                    <input class="form-control" type="text" name="manager" value="{{$note->manager_id}}" disabled /></input><br />
+                                    <input class="form-control" type="text" name="updatedTitle" placeholder="Title" value="{{$note->title}}" /><br />
+                                    <input class="form-control" type="text" name="updatedBody" placeholder="Body" value="{{$note->body}}"></input><br />
                                   </div>
                                 </div>
                               </div>
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
+                                @if($note->posted_by==$note->username || $note->posted_by==$note->full_name)
+                                <input type="submit" class="btn btn-success" value="Save Changes" />
+                                @endif
                               </div>
                             </div>
                           </div>
                         </div>
                       </form>
+
                       @if($note->posted_by==$note->username || $note->posted_by==$note->full_name)
-                      <form action="/client/company/<%=id%>/notes/delete/<%=std.id%>" method="post">
-                      @csrf
-                        <button class="btn btn-success text-light">Edit</button>
-                      </form>
                       <a href="{{ route('company.note.delete', ['id'=> Session::get('company_id'), 'id2' => $note->id]) }}" method="get">
                         <button class="btn btn-danger text-light">Delete</button>
                       </a>
