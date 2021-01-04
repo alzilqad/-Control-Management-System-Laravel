@@ -19,6 +19,7 @@
               <!-- Modal -->
               <div class="modal text-left fade" id="add-notes-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <form method="post">
+                  @csrf
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
                       <div class="modal-header">
@@ -91,6 +92,12 @@
                                     <input class="form-control" type="text" name="title" value="{{$note->title}}" disabled /><br />
                                     Body: <br />
                                     <input class="form-control" type="text" name="body" value="{{$note->body}}" disabled /></input><br />
+                                    Posted By: <br />
+                                    <input class="form-control" type="text" name="name" value="{{$note->posted_by}}" disabled /></input><br />
+                                    Client ID: <br />
+                                    <input class="form-control" type="text" name="client" value="{{$note->client_id}}" disabled /></input><br />
+                                    Manager ID: <br />
+                                    <input class="form-control" type="text" name="manager" value="{{$note->manager_id}}" disabled /></input><br />
                                   </div>
                                 </div>
                               </div>
@@ -105,9 +112,9 @@
                       <form action="/client/company/<%=id%>/notes/delete/<%=std.id%>" method="post">
                         <button class="btn btn-success text-light">Edit</button>
                       </form>
-                      <form action="/client/company/<%=id%>/notes/delete/<%=std.id%>" method="post">
+                      <a href="{{ route('company.note.delete', ['id'=> Session::get('company_id'), 'id2' => $note->id]) }}" method="get">
                         <button class="btn btn-danger text-light">Delete</button>
-                      </form>
+                      </a>
                       @endif
                     </td>
                   </tr>

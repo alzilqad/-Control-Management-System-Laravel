@@ -5,7 +5,7 @@ namespace App\Http\Controllers\clientUser;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\clientUser\AffiliatedCompany;
+use App\Models\clientUser\Note;
 
 class companyController extends Controller
 {
@@ -79,18 +79,72 @@ class companyController extends Controller
 
     public function note(Request $req, $id)
     {
-        $notes = DB::table('note')
-            ->join('manager', 'note.manager_id', '=', 'manager.id')
-            ->join('client', 'note.client_id', '=', 'client.client_id')
-            ->join('company', 'manager.company_name', '=', 'company.company_name')
+        // $notes = DB::table('note')
+        //     ->where('note.client_id', '=', $req->session()->get('id'))
+        //     ->where('note.manager_id', '=', $id)
+        //     ->join('manager', 'note.manager_id', '=', 'manager.id')
+        //     ->join('client', 'note.client_id', '=', 'client.client_id')
+        //     ->join('company', 'manager.company_name', '=', 'company.company_name')
+        //     ->select('note.*', 'client.*', 'manager.company_name')
+        //     ->get();
+
+        $notes = DB::table('affiliated_companies')
+            ->where('affiliated_companies.affiliated_company_id', '=', $id)
+            ->join('company', 'affiliated_companies.company_id', '=', 'company.id')
+            ->join('manager', 'company.manager_id', '=', 'manager.id')
+            ->join('note', 'note.manager_id', '=', 'manager.id')
             ->where('note.client_id', '=', $req->session()->get('id'))
-            ->where('note.manager_id', '=', $id)
+            ->join('client', 'note.client_id', '=', 'client.client_id')
             ->select('note.*', 'client.*', 'manager.company_name')
             ->get();
+
+
 
         if ($notes != null) {
             $req->session()->put('company_id', $id);
             return view('clientUser.company.notes', compact('notes'));
+        } else {
+            return back();
+        }
+    }
+
+    public function createNote(Request $req)
+    {
+        $req->validate([
+            'title' => 'required',
+            'body' => 'required',
+        ]);
+
+        $manager = DB::table('affiliated_companies')
+            ->where('affiliated_companies.affiliated_company_id', '=', $req->session()->get('company_id'))
+            ->join('company', 'company.id', '=', 'affiliated_companies.company_id')
+            ->select('company.manager_id')
+            ->get()
+            ->first();
+
+        $note = new Note();
+
+        $note->title = $req->title;
+        $note->body = $req->body;
+        $note->manager_id = $manager->manager_id;
+        $note->client_id = $req->session()->get('id');
+        $note->creation_date = date("Y-m-d");
+        $note->posted_by = $req->session()->get('username');
+
+        if ($note->save()) {
+            return redirect()->route('company.note', $req->session()->get('company_id'));
+        } else {
+            return back();
+        }
+    }
+
+    public function deleteNote(Request $req, $id, $id2)
+    {
+        $note = Note::find($id2);
+
+        if ($note!==null) {
+            $note->delete();
+            return redirect()->route('company.note', $req->session()->get('company_id'));
         } else {
             return back();
         }
