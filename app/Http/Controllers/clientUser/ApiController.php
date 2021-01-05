@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\clientUser;
+use Illuminate\Support\Facades\HTTP;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -9,6 +10,11 @@ use App\Models\clientUser\Transaction;
 
 class ApiController extends Controller
 {
+    public function getAllPendingTransactions() {
+        $transaction = PendingTransactionLog::get()->toJson(JSON_PRETTY_PRINT);
+        return response($transaction, 200);
+    }
+
     public function getAllTransactions(Request $req)
     {
         // logic to get all Transactions goes here
@@ -43,14 +49,20 @@ class ApiController extends Controller
         $transaction->client_id = $request->session()->get('id');
 
         if ($transaction->save()) {
-            return response()->json([
-                "message" => "transaction record created"
-            ], 201);
+            return view('clientUser.transaction.index', compact('transactions'));
+            // return response()->json([
+            //     "message" => "transaction record created"
+            // ], 201);
         } else {
-            $request->session()->flash('error', 'Fill all fields');
+            return back();
+            // $request->session()->flash('error', 'Fill all fields');
         }
 
+    }
 
-
+    public function viewTransaction(Request $request)
+    {
+        $resp = HTTP::get('http://localhost:3001/api/transaction');
+        dd($resp->json());
     }
 }

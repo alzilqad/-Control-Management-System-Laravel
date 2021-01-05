@@ -14,12 +14,13 @@ use App\Http\Controllers\clientUser\serviceController;
 use App\Http\Controllers\clientUser\chatController;
 use App\Http\Controllers\clientUser\ApiController;
 
+
 Route::get('/', function () {
-    $client = new GuzzleHttp\Client();
-    $res = $client->request('GET', 'GET https://www.googleapis.com/customsearch/v1?key=INSERT_YOUR_API_KEY&cx=017576662512468239146:omuauf_lfve&q=lectures', [
-        'auth' => ['user', 'pass']
-        //return view('clientUser.main');
-    ]);
+    // $client = new GuzzleHttp\Client();
+    // $res = $client->request('GET', 'GET https://www.googleapis.com/customsearch/v1?key=INSERT_YOUR_API_KEY&cx=017576662512468239146:omuauf_lfve&q=lectures', [
+    //     'auth' => ['user', 'pass']
+    //     //return view('clientUser.main');
+    // ]);
 });
 
 Route::get('/login', [loginController::class, 'index'])->name('login.index');
@@ -83,13 +84,20 @@ Route::group(['middleware' => ['session']], function () {
 
 
     //chat routes
-    Route::get('/chat', [chatController::class, 'index'])->name('chat.index');
+    // Route::get('/chat', [chatController::class, 'index'])->name('chat.index');
     //end of chat routes
+
+    Route::get('/chat', [chatController::class, 'index'])->name('chat.index');
+    Route::post('/chat/searchUser', [chatController::class, 'getUser']);
 
 
     //transaction routes
-    Route::get('transaction', [ApiController::class, 'getAllTransactions']);
+    Route::get('transaction', [ApiController::class, 'getAllTransactions'])->name('transaction');
     Route::post('transaction', [ApiController::class, 'createTransaction']);
+    Route::get('transaction/check', [ApiController::class, 'viewTransaction']);
     //end of transaction routes
 
+
+    Route::get('conversation/{userId}',  [chatController::class, 'conversation'])->name('message.conversation');
+    Route::post('send-message', [chatController::class, 'sendMessage'])->name('message.send-message');
 });

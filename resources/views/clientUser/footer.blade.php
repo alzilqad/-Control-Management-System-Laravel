@@ -1,4 +1,3 @@
-
 </div>
 
 <!-- ======= Footer ======= -->
@@ -35,6 +34,7 @@
 <script src="{{asset('vendor/isotope-layout/isotope.pkgd.min.js')}}"></script>
 <script src="{{asset('vendor/aos/aos.js')}}"></script>
 <script src="{{asset('js/main.js')}}"></script>
+<script src="{{asset('js/chat.js')}}"></script>
 
 <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
@@ -72,26 +72,47 @@
   });
 </script> -->
 
-<script>
-    const goBtn = document.getElementById("btn1");
-    goBtn.addEventListener("click", (e) => {
-        e.preventDefault();
+<!-- <script type="text/javascript">
+    $(document).ready(function() {
+                $(".btn1").click(function(e) {
+                    e.preventDefault();
+                    var _token = $("input[name='_token']").val();
 
-        let text1 = document.getElementById("text1").value;
+                    var email = $("#email").val();
 
-        $.ajax({
-            type: "POST",
-            url: window.location.pathname,
-            contentType: "application/json",
-            data: JSON.stringify({
-                text: text1
-            }),
-            success: (data) => {
-                document.getElementById("loaddiv").innerHTML = data;
-            }
-        });
-    });
-</script>
+                    var pswd = $("#pwd").val();
+
+                    var address = $("#address").val();
+
+
+                    $.ajax({
+                        url: "{{ route('ajax.request.store') }}",
+                        type: 'POST',
+                        data: {
+                            _token: _token,
+                            email: email,
+                            pswd: pswd,
+                            address: address
+                        },
+                        success: function(data) {
+                            printMsg(data);
+                        }
+                    });
+                });
+
+                function printMsg(msg) {
+
+                    if ($.isEmptyObject(msg.error)) {
+                        console.log(msg.success);
+                        $('.alert-block').css('display', 'block').append('<strong>' + msg.success + '</strong>');
+                    } else {
+                        $.each(msg.error, function(key, value) {
+                            $('.' + key + '_err').text(value);
+                        });
+                    }
+                }
+
+</script> -->
 
 
 </html>

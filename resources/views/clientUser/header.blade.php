@@ -61,6 +61,7 @@
                     <li><a href="{{route('proposal.index')}}">Proposal</a></li>
                     <li><a href="{{route('service.index')}}">Service History</a></li>
                     <li><a href="{{route('profile.index')}}">Profile</a></li>
+                    <li><a href="{{route('transaction')}}">Transaction</a></li>
                     <li><a href="{{route('chat.index')}}">Chat</a></li>
                     <li><a href="{{route('logout.index')}}">Log Out</a></li>
                     @else
